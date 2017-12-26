@@ -2,6 +2,7 @@
   <div id="app">
     <img src="./assets/logo.png">
     <router-view/>
+    <fish-button>Testing</fish-button>
   </div>
 </template>
 
