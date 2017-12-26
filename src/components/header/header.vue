@@ -1,9 +1,9 @@
 <template>
   <div class="global-nav">
-    <fish-menu mode="horizontal" defaultActive="1">
+    <fish-menu mode="horizontal" defaultActive="0">
       <fish-option index="0" content="首页"></fish-option>
-      <fish-option index="1" content="User"></fish-option>
-      <fish-option index="2" content="登录" @click="login()"></fish-option>
+      <fish-option index="1" content="选电影"></fish-option>
+      <fish-option index="2" content="用户" @click="login()"></fish-option>
       <fish-submenu index="3">
         <template slot="title">submenu</template>
         <fish-option index="3-0" content="Jack"></fish-option>

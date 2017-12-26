@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Header></Header>
+    <div>
+      <Header></Header>
+    </div>
     <div style="margin: 60px">
       <fish-pagination :rows="5" :total="50" :current="page" @change="(current) => page = current">
       </fish-pagination>
