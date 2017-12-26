@@ -1,42 +1,45 @@
 <template>
-  <div>
-    <div class="bd" style="float: left">
-      <div class="top-nav-info">
-        <a href="#" class="nav-login" rel="nofollow">登录</a>
-        <a href="#" class="nav-register" rel="nofollow">注册</a>
-      </div>
-      <div class="global-nav-items" id="a">
-        <ul class="" style="list-style-type: none">
-          <li class>
-            <a href="#">placeholder</a>
-          </li>
-          <li class>
-            <a href="#">placeholder</a>
-          </li>
-          <li class>
-            <a href="#">placeholder</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+  <div class="global-nav">
+    <fish-menu mode="horizontal" defaultActive="1">
+      <fish-option index="0" content="首页"></fish-option>
+      <fish-option index="1" content="User"></fish-option>
+      <fish-option index="2" content="登录" @click="login()"></fish-option>
+      <fish-submenu index="3">
+        <template slot="title">submenu</template>
+        <fish-option index="3-0" content="Jack"></fish-option>
+        <fish-option index="3-1" content="Lucy"></fish-option>
+        <fish-option index="3-2" content="Active"></fish-option>
+        <!--<fish-option index="3-3">Option-3</fish-option>-->
+        <fish-submenu index="3-3">
+          <template slot="title">submenu-3</template>
+          <fish-option index="3-3-0" content="Jack"></fish-option>
+          <fish-option index="3-3-1" content="Lucy"></fish-option>
+          <fish-option index="3-3-2" content="Active"></fish-option>
+        </fish-submenu>
+        <fish-option index="3-4" content="Option-4"></fish-option>
+        <fish-option index="3-5" content="Option-5">Option-5</fish-option>
+      </fish-submenu>
+    </fish-menu>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  methods: {
+    login: function () {
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 
 
 <style>
-#db-global-nav {
+.global-nav {
   height: 28px;
   color: #d5d5d5;
   background-color: #545652;
   min-width: 950px;
-}
-#a li {
-  float: left;
 }
 </style>

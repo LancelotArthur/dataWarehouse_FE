@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div style="margin: 60px">
         <div class="login-wrap" v-show="showLogin">
             <h3>登录</h3>
             <p v-show="showTishi">{{tishi}}</p>
             <input type="text" placeholder="请输入用户名" v-model="username">
             <input type="password" placeholder="请输入密码" v-model="password">
-            <button v-on:click="login">登录</button>
+            <button @click="login">登录</button>
             <span v-on:click="ToRegister">没有账号？马上注册</span>
         </div>
 
@@ -19,6 +19,36 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      showLogin: true,
+      showRegister: false,
+      showTishi: false,
+      tishi: '',
+      username: '',
+      password: '',
+      newUsername: '',
+      newPassword: ''
+    }
+  },
+  methods: {
+    login: function () {
+      this.$router.push('/')
+    },
+    ToRegister: function () {
+      this.showLogin = false
+      this.showRegister = true
+    },
+    ToLogin: function () {
+      this.showRegister = false
+      this.showLogin = true
+    }
+  }
+}
+</script>
 
 <style>
 .login-wrap {
@@ -58,20 +88,3 @@ span:hover {
   color: #41b883;
 }
 </style>
-
-<script>
-export default {
-  data () {
-    return {
-      showLogin: true,
-      showRegister: false,
-      showTishi: false,
-      tishi: '',
-      username: '',
-      password: '',
-      newUsername: '',
-      newPassword: ''
-    }
-  }
-}
-</script>
