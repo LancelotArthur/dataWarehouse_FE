@@ -5,9 +5,11 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 import FishUI from 'fish-ui'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(FishUI)
-
+Vue.use(ElementUI)
 Vue.use(VueResource)
 
 Vue.config.productionTip = false

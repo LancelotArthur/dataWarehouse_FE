@@ -1,5 +1,5 @@
 <template>
-  <div class="global-nav">
+  <div class="">
     <fish-menu mode="horizontal" defaultActive="0">
       <fish-option index="0" content="首页"></fish-option>
       <fish-option index="1" content="选电影"></fish-option>
