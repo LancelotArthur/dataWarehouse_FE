@@ -6,14 +6,14 @@
             <el-input class="inputBox"
               placeholder="请输入用户名"
               v-model="username"
-              clearable>
+              clearable="true">
             </el-input>
           </div>
           <div>
             <el-input class="inputBox"
               placeholder="请输入密码"
               v-model="password"
-              clearable>
+              clearable="true">
             </el-input>
           </div>
           <el-button type="primary" @click="login">登录</el-button><br>
