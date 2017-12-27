@@ -78,11 +78,11 @@ export default {
   }
   .login-wrap {
     text-align: center;
-    width: 30%;
+    width: 25%;
     margin: 0 auto;
   }
   .register-wrap {
-    width: 30%;
+    width: 25%;
     margin: 0 auto;
   }
 </style>

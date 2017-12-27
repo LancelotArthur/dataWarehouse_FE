@@ -2,7 +2,7 @@
   <div class="">
     <fish-menu mode="horizontal" defaultActive="0">
       <fish-option index="0" content="首页" @click="homePage"></fish-option>
-      <fish-option index="1" content="选电影"></fish-option>
+      <fish-option index="1" content="选电影" @click="pickMovies"></fish-option>
       <fish-option index="2" content="登录" @click="login"></fish-option>
       <fish-submenu index="3">
         <template slot="title">用户</template>
@@ -32,6 +32,9 @@ export default {
     },
     homePage: function () {
       this.$router.push('/homePage')
+    },
+    pickMovies: function () {
+      this.$router.push('/pickMovies')
     }
   }
 }

@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import Index from '@/components/index/index'
-import homePage from '@/components/pages/homePage'
 import Login from '@/components/login'
 import Header from '@/components/header/header'
+import homePage from '@/components/pages/homePage'
+import samplePage from '@/components/pages/samplePage'
+import pickMovies from '@/components/pages/pickMovies'
 
 Vue.use(Router)
 
@@ -28,6 +30,16 @@ export default new Router({
       path: '/homePage',
       name: 'homePage',
       component: homePage
+    },
+    {
+      path: '/samplePage',
+      name: 'samplePage',
+      component: samplePage
+    },
+    {
+      path: '/pickMovies',
+      name: 'pickMovies',
+      component: pickMovies
     }
   ]
 })
