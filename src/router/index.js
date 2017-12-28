@@ -8,6 +8,7 @@ import samplePage from '@/components/pages/samplePage'
 import pickMovies from '@/components/pages/pickMovies'
 import rankingList from '@/components/pages/rankingList'
 import classification from '@/components/pages/classification'
+import movieDetail from '@/components/pages/movieDetail'
 import review from '@/components/pages/review'
 
 Vue.use(Router)
@@ -58,6 +59,11 @@ export default new Router({
       path: '/review',
       name: 'review',
       component: review
+    },
+    {
+      path: '/movieDetail',
+      name: 'movieDetail',
+      component: movieDetail
     }
   ]
 })

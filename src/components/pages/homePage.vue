@@ -18,7 +18,7 @@
           <el-main>
             <el-row>
               <el-carousel :interval="4000" type="card" height="200px">
-                <el-carousel-item v-for="item in 6" :key="item">
+                <el-carousel-item v-for="item in 6" :key="item" @click="movieDetail">
                   <img src="../../assets/logo.png" alt="">
                   <h3>{{ item }}</h3>
                 </el-carousel-item>
@@ -29,7 +29,7 @@
                 <el-card :body-style="{ padding: '0px' }">
                   <img src="../../assets/logo.png" class="image">
                   <div style="padding: 14px;">
-                      <el-button type="text" class="button">操作按钮</el-button>
+                      <el-button type="text" class="button" @click="movieDetail">操作按钮</el-button>
                       <br>
                       <time class="time">{{ currentDate }}</time>
                   </div>
@@ -141,6 +141,9 @@ export default {
     },
     more: function () {
       this.$router.push('/')
+    },
+    movieDetail: function () {
+      this.$router.push('/movieDetail')
     }
   }
 }
