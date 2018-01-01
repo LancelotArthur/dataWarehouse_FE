@@ -9,18 +9,16 @@
       <fish-option index="5" content="登录" @click="login"></fish-option>
       <fish-submenu index="6">
         <template slot="title">用户</template>
-        <fish-option index="6-0" content="Jack"></fish-option>
-        <fish-option index="6-1" content="Lucy"></fish-option>
-        <fish-option index="6-2" content="Active"></fish-option>
-        <!--<fish-option index="3-3">Option-3</fish-option>-->
+        <fish-option index="6-0" content="个人主页" @click="profile"></fish-option>
+        <fish-option index="6-1" content="我的订单"></fish-option>
+        <fish-option index="6-2" content="我的钱包"></fish-option>
         <fish-submenu index="6-3">
-          <template slot="title">submenu-3</template>
+          <template slot="title">账号管理</template>
           <fish-option index="6-3-0" content="Jack"></fish-option>
           <fish-option index="6-3-1" content="Lucy"></fish-option>
           <fish-option index="6-3-2" content="Active"></fish-option>
         </fish-submenu>
-        <fish-option index="6-4" content="Option-4"></fish-option>
-        <fish-option index="6-5" content="Option-5">Option-5</fish-option>
+        <fish-option index="6-4" content="退出"></fish-option>
       </fish-submenu>
     </fish-menu>
   </div>
@@ -47,6 +45,9 @@ export default {
     },
     review: function () {
       this.$router.push('/review')
+    },
+    profile: function () {
+      this.$router.push('/profile')
     }
   }
 }

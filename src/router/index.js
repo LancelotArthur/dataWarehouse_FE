@@ -10,6 +10,7 @@ import rankingList from '@/components/pages/rankingList'
 import classification from '@/components/pages/classification'
 import movieDetail from '@/components/pages/movieDetail'
 import actorDetail from '@/components/pages/actorDetail'
+import profile from '@/components/pages/profile'
 import review from '@/components/pages/review'
 
 Vue.use(Router)
@@ -70,6 +71,11 @@ export default new Router({
       path: '/actorDetail',
       name: 'actorDetail',
       component: actorDetail
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: profile
     }
   ]
 })
