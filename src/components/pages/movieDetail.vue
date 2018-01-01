@@ -6,20 +6,20 @@
           <el-header height="40px" style="text-align: left;padding: 0"><h1>敦刻尔克 Dunkirk</h1></el-header>
           <el-container>
             <el-aside width="150px">
-              <img src="../../assets/logo.png" class="image">
+              <img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2494950714.webp" class="image">
             </el-aside>
             <el-main style="padding-top: 0px;text-align: left">
               <h5 style="margin: 0">导演：<a href="#">克里斯托弗·诺兰</a> </h5>
               <h5 style="margin: 0">编剧：<a href="#">克里斯托弗·诺兰</a> </h5>
               <h5 style="margin: 0">主演：<a href="#">菲恩·怀特海德 / 汤姆·格林-卡尼 / 杰克·劳登 / 哈里·斯泰尔斯 / 阿奈林·巴纳德 / 更多...</a> </h5>
               <h5 style="margin: 0">类型：<a href="#">剧情 / 历史 / 战争</a> </h5>
-              <h5 style="margin: 0">官方网站<a href="#">www.dunkirkmovie.com</a> </h5>
+              <h5 style="margin: 0">官方网站：<a href="#">www.dunkirkmovie.com</a> </h5>
               <h5 style="margin: 0">制片国家/地区：<a href="#">英国 / 法国 / 美国 / 荷兰</a> </h5>
               <h5 style="margin: 0">语言：<a href="#">英语 / 法语 / 德语</a> </h5>
               <h5 style="margin: 0">上映日期：<a href="#">2017-09-01(中国大陆) / 2017-07-13(伦敦首映) / 2017-07-21(美国)</a> </h5>
               <h5 style="margin: 0">片长：<a href="#">107分钟</a> </h5>
-              <h5 style="margin: 0">又名<a href="#">敦刻尔克大撤退 / 敦克尔克大行动(台) / 邓寇克大行动(港)</a> </h5>
-              <h5 style="margin: 0">IMDb链接<a href="#">tt5013056</a> </h5>
+              <h5 style="margin: 0">又名：<a href="#">敦刻尔克大撤退 / 敦克尔克大行动(台) / 邓寇克大行动(港)</a> </h5>
+              <h5 style="margin: 0">IMDb链接：<a href="#">tt5013056</a> </h5>
             </el-main>
             <el-aside width="150px" style="border-left: 1px solid #d9d9d9">
               <h5>豆瓣评分</h5>
@@ -36,7 +36,7 @@
             <el-card :body-style="{ padding: '0px' }">
               <img src="../../assets/logo.png" class="image">
               <div style="padding: 0;text-align: center">
-                  <el-button type="text" class="button" @click="movieDetail">操作按钮</el-button>
+                  <el-button type="text" class="button" @click="actorDetail">菲恩·怀特海德</el-button>
                   <h5 style="color: #d9d9d9;margin: 0;font-size: 13px">{{role}}</h5>
               </div>
             </el-card>
@@ -118,6 +118,11 @@ export default {
       role: '饰 汤米 Tommy',
       rate: 4.0,
       length: 2
+    }
+  },
+  methods: {
+    actorDetail: function () {
+      this.$router.push('/actorDetail')
     }
   }
 }
