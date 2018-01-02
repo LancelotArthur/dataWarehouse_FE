@@ -88,7 +88,9 @@ export default {
         }
       }).then(response => {
         if (response.data.status === '200') {
-          // sessionStorage.setItem('token', response.data.result.token)
+          sessionStorage.setItem('token', response.data.result.token)
+          sessionStorage.setItem('userName', this.info.userName)
+          console.log(sessionStorage.getItem('token'))
           this.$confirm('是否要保存密码', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
@@ -110,7 +112,7 @@ export default {
           })
         } else if (response.data.status === '401') {
           this.$message({
-            type: 'success',
+            type: 'info',
             message: response.data.result
           })
         }
@@ -137,6 +139,11 @@ export default {
             message: response.data.result
           })
         }
+      }, response => {
+        this.$message({
+          message: '服务器错误',
+          type: 'error'
+        })
       })
     },
     ToRegister: function () {
