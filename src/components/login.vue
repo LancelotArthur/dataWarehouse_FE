@@ -11,6 +11,7 @@
       </div>
       <div>
         <el-input class="inputBox"
+          type="password"
           placeholder="请输入密码"
           v-model="info.userPassword"
           clearable="true">
@@ -25,14 +26,28 @@
       <div>
         <el-input class="inputBox"
           placeholder="请输入用户名"
-          v-model="newUsername"
+          v-model="newInfo.userName"
           clearable>
         </el-input>
       </div>
       <div>
         <el-input class="inputBox"
           placeholder="请输入密码"
-          v-model="newPassword"
+          v-model="newInfo.userPassword"
+          clearable>
+        </el-input>
+      </div>
+      <div>
+        <el-input class="inputBox"
+          placeholder="请输入邮箱"
+          v-model="newInfo.email"
+          clearable>
+        </el-input>
+      </div>
+      <div>
+        <el-input class="inputBox"
+          placeholder="请输入昵称"
+          v-model="newInfo.nickName"
           clearable>
         </el-input>
       </div>
@@ -53,8 +68,12 @@ export default {
       showRegister: false,
       showTishi: false,
       tishi: '',
-      newUsername: '',
-      newPassword: '',
+      newInfo: {
+        userName: '',
+        userPassword: '',
+        email: '',
+        nickName: ''
+      },
       info: {
         userName: '',
         userPassword: ''
@@ -102,7 +121,24 @@ export default {
         })
       })
     },
-    register: function () { },
+    register: function () {
+      axios.post('http://localhost:8888/register', qs.stringify(this.newInfo)).then(response => {
+        if (response.data.status === '201') {
+          this.ToLogin()
+          this.$message({
+            type: 'success',
+            center: true,
+            message: '欢迎 ' + this.newInfo.nickName
+          })
+        } else if (response.data.status === '400') {
+          this.$message({
+            type: 'warning',
+            duration: 2000,
+            message: response.data.result
+          })
+        }
+      })
+    },
     ToRegister: function () {
       this.showLogin = false
       this.showRegister = true
