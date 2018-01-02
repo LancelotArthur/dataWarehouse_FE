@@ -58,7 +58,50 @@ export default {
   },
   methods: {
     login: function () {
-      this.$router.push('/homePage')
+      // this.$http.post(
+      //   'localhost:8888/login',
+      //   {
+      //     userName: 'gst3',
+      //     userPassword: 'pppp'
+      //   },
+      //   {
+      //     'headers': {
+      //       'Content-Type': 'application/x-www-form-urlencoded'
+      //     }
+      //   }
+      // ).then(function (response) {
+      //   alert(response.data)
+      // }, function (response) {
+      //   alert(response.headers)
+      //   alert('something wrong')
+      // })
+      this.$http({
+        url: 'localhost:8888/login',
+        method: 'POST',
+        data: {
+          userName: 'gst3',
+          userPassword: 'pppp'
+        },
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(function (response) {
+        alert(response.data)
+      }, function (response) {
+        alert(response.headers)
+        alert('something wrong')
+      })
+      // this.$router.push('/homePage')
+    },
+    register: function () {
+      this.$http.get(
+        'localhost:8888/movie/22266012'
+      ).then(function (response) {
+        alert(response.data)
+      }, function (response) {
+        alert(response.headers)
+        alert('something wrong')
+      })
     },
     ToRegister: function () {
       this.showLogin = false
