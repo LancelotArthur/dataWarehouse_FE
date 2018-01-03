@@ -6,9 +6,8 @@ import router from './router'
 import FishUI from 'fish-ui'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import Vuex from 'vuex'
+import store from './vuex/store'
 
-Vue.use(Vuex)
 Vue.use(FishUI)
 Vue.use(ElementUI)
 
@@ -18,6 +17,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

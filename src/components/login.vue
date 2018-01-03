@@ -96,18 +96,20 @@ export default {
             cancelButtonText: '取消',
             type: 'info'
           }).then(() => {
+            this.$store.commit('login', sessionStorage)
             this.$router.push('/homePage')
             // localStorage.setItem('userName', this.info.userName)
             // localStorage.setItem('userPassword', this.info.userPassword)
             this.$message({
               type: 'success',
-              message: '保存成功!'
+              message: '保存成功!' + '欢迎' + this.info.userName
             })
           }).catch(() => {
+            this.$store.commit('login', sessionStorage)
             this.$router.push('/homePage')
             this.$message({
               type: 'success',
-              message: '登录成功'
+              message: '欢迎 ' + this.info.userName
             })
           })
         } else if (response.data.status === '401') {

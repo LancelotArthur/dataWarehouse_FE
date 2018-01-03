@@ -6,9 +6,9 @@
       <fish-option index="2" content="排行榜" @click="rankingList"></fish-option>
       <fish-option index="3" content="分类" @click="classification"></fish-option>
       <fish-option index="4" content="影评" @click="review"></fish-option>
-      <fish-option index="5" content="登录" @click="login"></fish-option>
-      <fish-submenu index="6">
-        <template slot="title">{{userName}}</template>
+      <fish-option index="5" content="登录" @click="login" v-show="!$store.state.token"></fish-option>
+      <fish-submenu index="6" v-show="$store.state.token">
+        <template slot="title">{{$store.state.userName}}</template>
         <fish-option index="6-0" content="个人主页" @click="profile"></fish-option>
         <fish-option index="6-1" content="我的订单"></fish-option>
         <fish-option index="6-2" content="我的钱包"></fish-option>
@@ -32,8 +32,6 @@ export default {
   name: 'Header',
   data () {
     return {
-      token: sessionStorage.getItem('token'),
-      userName: sessionStorage.getItem('userName')
     }
   },
   methods: {
@@ -68,6 +66,7 @@ export default {
       }).then(response => {
         sessionStorage.removeItem('token')
         sessionStorage.removeItem('userName')
+        this.$store.commit('logout')
         this.$message({
           message: '成功注销',
           type: 'success'
