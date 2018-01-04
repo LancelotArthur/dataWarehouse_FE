@@ -90,20 +90,20 @@
           </el-main>
         </div>
         <div id="review" style="margin-top: 60px">
-          <el-row :gutter="20">
+          <el-row :gutter="20" style="text-align: left;margin-bottom: 10px">
             <el-col :span="5"><div class="grid-content bg-purple"><h3>最受欢迎的影评</h3></div></el-col>
             <el-col :span="15">
               <div class="grid-content bg-purple">
               </div>
             </el-col>
             <el-col :span="4">
-              <div class="grid-content bg-purple">
-                <el-button type="text" class="button" @click="more">更多>></el-button>
+              <div class="grid-content bg-purple" style="margin-top: 3px">
+                <router-link to='/review'>更多>></router-link>
               </div>
             </el-col>
           </el-row>
           <el-row :span="4" v-for="(item) in movie_review" :key="item.movieId" :offset="0">
-            <el-container style="text-align: left;margin-top: 0">
+            <el-container style="text-align: left;margin-top: 10px">
               <el-aside width="100px">
                 <img :src="item.movie.coverAddress" class="image" @click="movieDetail(item.movieId)">
               </el-aside>

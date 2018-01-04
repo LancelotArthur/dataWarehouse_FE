@@ -8,21 +8,32 @@
         <el-row style="text-align: left;margin-top: 15px;margin-bottom: 15px">
           <h3>新片榜</h3>
         </el-row>
-        <el-row :span="4" v-for="(o) in 4" :key="o" :offset="0">
+        <el-row :span="4" v-for="(item) in movie_data.slice(0, 15)" :key="item.id" :offset="0">
           <p class="ul"/>
           <el-container style="margin-top: 30px">
             <el-aside width="150px">
-              <img src="../../assets/logo.png" class="image">
+              <img :src="item.coverAddress" class="image" @click="movieDetail(item.id)">
             </el-aside>
             <el-container>
               <el-header height="20px" style="text-align: left">
-                <h4><a href="#">暴雪将至 / The Looming Storm / The Storm Looming </a></h4></el-header>
+                <h4><a @click="movieDetail(item.id)">{{item.movieName}}</a></h4></el-header>
               <el-main style="padding-top: 0px">
                 <h5 style="text-align: left;margin-top: 10px">
-                  2017-10-29(东京电影节) / 2017-11-17(中国大陆) / 段奕宏 / 江一燕 / 杜源 / 郑伟 / 郑楚一 / 张林 / 中国大陆 / 董越 / 120分钟 / 剧情 / 犯罪 / 悬疑 / 董越 Yue Dong / 汉语普通话
+                  {{item.releaseTime.slice(2, item.releaseTime.length-2).split('\', \'').join(' / ')}}
+                  / {{item.lastTimeMinute}}分钟
+                  / {{item.genres.slice(2, item.genres.length-2).split('\', \'').join(' / ')}}
+                  / {{item.movieLanguage}}
                 </h5>
               </el-main>
-              <el-footer style="text-align: left">Footer</el-footer>
+              <el-footer style="text-align: left">
+                <el-rate
+                  v-model="item.rate"
+                  disabled
+                  text-color="#ff9900"
+                  disabled-void-color="#cccccc"
+                  score-template="{value}">
+                </el-rate>
+              </el-footer>
             </el-container>
           </el-container>
         </el-row>
@@ -54,7 +65,33 @@
 </template>
 
 <script>
-export default { }
+import axios from 'axios'
+
+export default {
+  data () {
+    return {
+      movie_data: []
+    }
+  },
+  mounted: function () {
+    axios.get('http://localhost:8888/explore?type=year&tag=2016-2017&sort=ReleaseTime').then(response => {
+      this.movie_data = response.data.result
+      this.movie_data.forEach(element => {
+        element.rate = element.rate / 2
+      })
+    }, response => {
+      this.$message({
+        message: response.status,
+        type: 'error'
+      })
+    })
+  },
+  methods: {
+    movieDetail: function (id) {
+      this.$router.push('/movieDetail/' + id)
+    }
+  }
+}
 </script>
 
 <style>

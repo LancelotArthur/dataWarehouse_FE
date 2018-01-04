@@ -67,7 +67,6 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      currentDate: new Date(),
       movie_data: []
     }
   },
