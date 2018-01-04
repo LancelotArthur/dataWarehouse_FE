@@ -112,6 +112,7 @@ export default {
             // localStorage.setItem('userPassword', this.info.userPassword)
             this.$message({
               type: 'success',
+              duration: 2000,
               message: '保存成功!' + '欢迎' + this.info.userName
             })
           }).catch(() => {
@@ -119,12 +120,14 @@ export default {
             this.$router.push('/homePage')
             this.$message({
               type: 'success',
+              duration: 2000,
               message: '欢迎 ' + this.info.userName
             })
           })
         } else if (response.data.status === '401') {
           this.$message({
             type: 'info',
+            duration: 2000,
             message: response.data.result
           })
         }
@@ -136,27 +139,32 @@ export default {
       })
     },
     register: function () {
+      var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/
       if (this.newInfo.userName === '') {
         this.$message({
           type: 'info',
+          duration: 2000,
           center: true,
           message: '用户名不能为空'
         })
       } else if (this.newInfo.userPassword === '') {
         this.$message({
           type: 'info',
+          duration: 2000,
           center: true,
           message: '请输入密码'
         })
       } else if (this.newInfo.userPasswordCofirm === '') {
         this.$message({
           type: 'info',
+          duration: 2000,
           center: true,
           message: '请确认密码'
         })
       } else if (this.newInfo.userPassword !== this.newInfo.userPasswordCofirm) {
         this.$message({
           type: 'info',
+          duration: 2000,
           center: true,
           message: '两次输入密码不一致'
         })
@@ -164,12 +172,21 @@ export default {
       } else if (this.newInfo.email === '') {
         this.$message({
           type: 'info',
+          duration: 2000,
           center: true,
           message: '邮箱不能为空'
+        })
+      } else if (!reg.test(this.newInfo.email)) {
+        this.$message({
+          type: 'info',
+          duration: 2000,
+          center: true,
+          message: '邮箱格式不正确'
         })
       } else if (this.newInfo.nickName === '') {
         this.$message({
           type: 'info',
+          duration: 2000,
           center: true,
           message: '请输入昵称'
         })
@@ -179,6 +196,7 @@ export default {
             this.ToLogin()
             this.$message({
               type: 'success',
+              duration: 2000,
               center: true,
               message: '欢迎 ' + this.newInfo.nickName
             })

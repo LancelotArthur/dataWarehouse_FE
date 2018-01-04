@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <fish-menu mode="horizontal" defaultActive="0">
+    <fish-menu mode="horizontal" defaultActive="0" size="large">
       <fish-option index="0" content="首页" @click="homePage"></fish-option>
       <fish-option index="1" content="选电影" @click="pickMovies"></fish-option>
       <fish-option index="2" content="排行榜" @click="rankingList"></fish-option>

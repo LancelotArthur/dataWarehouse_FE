@@ -3,47 +3,51 @@
     <el-row id="global-wrap" :gutter="50">
       <el-col id="article" :span="18">
         <el-container id="detail">
-          <el-header height="40px" style="text-align: left;padding: 0"><h1>敦刻尔克 Dunkirk</h1></el-header>
+          <el-header height="40px" style="text-align: left;padding: 0">
+            <h1>{{movie_data.movieName}}</h1>
+          </el-header>
           <el-container>
             <el-aside width="150px">
-              <img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2494950714.webp" class="image">
+              <img :src="movie_data.coverAddress" class="image">
             </el-aside>
             <el-main style="padding-top: 0px;text-align: left">
-              <h5 style="margin: 0">导演：<a href="#">克里斯托弗·诺兰</a> </h5>
-              <h5 style="margin: 0">编剧：<a href="#">克里斯托弗·诺兰</a> </h5>
-              <h5 style="margin: 0">主演：<a href="#">菲恩·怀特海德 / 汤姆·格林-卡尼 / 杰克·劳登 / 哈里·斯泰尔斯 / 阿奈林·巴纳德 / 更多...</a> </h5>
-              <h5 style="margin: 0">类型：<a href="#">剧情 / 历史 / 战争</a> </h5>
-              <h5 style="margin: 0">官方网站：<a href="#">www.dunkirkmovie.com</a> </h5>
-              <h5 style="margin: 0">制片国家/地区：<a href="#">英国 / 法国 / 美国 / 荷兰</a> </h5>
-              <h5 style="margin: 0">语言：<a href="#">英语 / 法语 / 德语</a> </h5>
-              <h5 style="margin: 0">上映日期：<a href="#">2017-09-01(中国大陆) / 2017-07-13(伦敦首映) / 2017-07-21(美国)</a> </h5>
-              <h5 style="margin: 0">片长：<a href="#">107分钟</a> </h5>
-              <h5 style="margin: 0">又名：<a href="#">敦刻尔克大撤退 / 敦克尔克大行动(台) / 邓寇克大行动(港)</a> </h5>
-              <h5 style="margin: 0">IMDb链接：<a href="#">tt5013056</a> </h5>
+              <h5 style="margin: 0">导演：<a href="#">{{movie_data_celebrity.Directors[0].name}}</a> </h5>
+              <h5 style="margin: 0">编剧：<a href="#">{{movie_data_celebrity.Writers[0].name}}</a> </h5>
+              <h5 style="margin: 0">主演：<a href="#">{{movie_data_celebrity.Actors[0].name}}</a> </h5>
+              <h5 style="margin: 0">类型：{{movie_data.genres}}</h5>
+              <h5 style="margin: 0">语言：{{movie_data.movieLanguage}}</h5>
+              <h5 style="margin: 0">上映日期：{{movie_data.releaseTime}}</h5>
+              <h5 style="margin: 0">片长：{{movie_data.lastTimeMinute}}分钟</h5>
+              <h5 style="margin: 0">电影分级：{{movie_data.mpaaRate}}</h5>
+              <h5 style="margin: 0">豆瓣评分：{{movie_data.rate}}</h5>
             </el-main>
             <el-aside width="150px" style="border-left: 1px solid #d9d9d9">
-              <h5>豆瓣评分</h5>
+              <el-button type="primary" :icon="isSeen" plain style="width: 134px;margin-left: 10px" @click="addToSeenList">
+                看过
+              </el-button>
+              <el-button type="primary" :icon="isWish" plain style="margin-top: 20px" @click="addToWishList">
+                加入心愿单
+              </el-button>
             </el-aside>
           </el-container>
         </el-container>
         <el-row id="summary">
-          <h3>敦刻尔克的剧情简介 · · · · · ·</h3>
-          <h5 style="margin-top: 10px">故事改编自著名的二战军事事件“敦刻尔克大撤退”。二战初期，40万英法盟军被敌军围困于敦刻尔克的海滩之上，面对敌军步步逼近的绝境，形势万分危急。英国政府和海军发动大批船员，动员人民起来营救军队。英国士兵汤米（菲昂·怀特海德 Fionn Whitehead 饰）在逃离海滩的过程中相继结识吉布森与亚历克斯，同时民用船主道森先生（马克·里朗斯 Mark Rylance 饰）与儿子彼得、17岁少年乔治也离开英国，去往敦刻尔克拯救士兵。三人陆续搭救了海军（基里安·墨菲 Cillian Murphy 饰）、飞行员柯林斯及汤米一行人，而战斗机飞行员法瑞尔（汤姆·哈迪 Tom Hardy 饰）则在被敌人双面夹击的艰难情形下顽强战斗。影片的故事从陆、海、空三个角度讲述，在德国军队的包围下，每个人不得不为自己的命运背水一战，才有可能活着回家。</h5>
+          <h3>{{movie_data.movieName}}的剧情简介 · · · · · ·</h3>
+          <h5 style="margin-top: 10px">{{movie_data.briefIntroduction}}</h5>
         </el-row>
         <el-row id="actors">
-          <h3>敦刻尔克的影人 · · · · · ·（<a href="#" style="font-size: 15px">全部</a>）</h3>
-          <el-col :span="3" v-for="(o, index) in 6" :key="o" :offset="index == 0 ? 0 : 1">
+          <h3>{{movie_data.movieName}}的影人 · · · · · ·（<a href="#" style="font-size: 15px">全部</a>）</h3>
+          <el-col :span="3" v-for="(item, index) in movie_data_celebrity.Actors.slice(0,6)" :key="item.id" :offset="index == 0 ? 0 : 1">
             <el-card :body-style="{ padding: '0px' }">
-              <img src="../../assets/logo.png" class="image">
+              <img src="https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1365913316.45.jpg" alt="">
               <div style="padding: 0;text-align: center">
-                  <el-button type="text" class="button" @click="actorDetail">菲恩·怀特海德</el-button>
-                  <h5 style="color: #d9d9d9;margin: 0;font-size: 13px">{{role}}</h5>
+                  <el-button type="text" class="button" @click="actorDetail">{{item.name}}</el-button>
               </div>
             </el-card>
           </el-col>
         </el-row>
         <el-row id="brief-review">
-          <h3>敦刻尔克的短评 · · · · · ·（<a href="#" style="font-size: 15px">全部</a>）</h3>
+          <h3>{{movie_data.movieName}}的短评 · · · · · ·（<a href="#" style="font-size: 15px">全部</a>）</h3>
           <a href="#">热门</a> / <a href="#">最新</a>
           <el-row :span="4" v-for="(o) in 5" :key="o" :offset="0" style="margin-top: 0">
             <hr color="#d9d9d9"/>
@@ -71,7 +75,7 @@
           </el-row>
         </el-row>
         <el-row id="review">
-          <h3>敦刻尔克的影评 · · · · · ·（<a href="#" style="font-size: 15px">全部</a>）</h3>
+          <h3>{{movie_data.movieName}}的影评 · · · · · ·（<a href="#" style="font-size: 15px">全部</a>）</h3>
           <a href="#">热门</a> / <a href="#">最新</a>
           <el-row :span="4" v-for="(o) in 5" :key="o" :offset="0" style="margin-top: 0">
             <hr color="#d9d9d9"/>
@@ -112,17 +116,60 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
       role: '饰 汤米 Tommy',
       rate: 4.0,
-      length: 2
+      length: 2,
+      isSeen: 'el-icon-circle-plus-outline',
+      isWish: 'el-icon-circle-plus-outline',
+      movie_data: {},
+      movie_data_celebrity: {}
     }
+  },
+  mounted: function () {
+    axios.get('http://localhost:8888/movie/' + this.$route.params.id).then(response => {
+      this.movie_data = response.data.result
+      var genres = this.movie_data.genres.slice(2, this.movie_data.genres.length - 2).split('\', \'')
+      this.movie_data.genres = genres.join(' / ')
+      var releaseTime = this.movie_data.releaseTime.slice(2, this.movie_data.releaseTime.length - 2).split('\', \'')
+      this.movie_data.releaseTime = releaseTime.join(' / ')
+      this.movie_data.briefIntroduction = this.movie_data.briefIntroduction.slice(0, this.movie_data.briefIntroduction.length - 6)
+    }, response => {
+      this.$message({
+        message: response.status,
+        type: 'error'
+      })
+    })
+    axios.get('http://localhost:8888/movie/' + this.$route.params.id + '/celebrity').then(response => {
+      this.movie_data_celebrity = response.data.result
+    }, response => {
+      this.$message({
+        message: response.status,
+        type: 'error'
+      })
+    })
   },
   methods: {
     actorDetail: function () {
       this.$router.push('/actorDetail')
+    },
+    addToSeenList: function () {
+      if (this.isSeen === 'el-icon-circle-plus-outline') {
+        this.isSeen = 'el-icon-circle-check'
+      } else {
+        this.isSeen = 'el-icon-circle-plus-outline'
+      }
+    },
+    addToWishList: function () {
+      if (this.isWish === 'el-icon-circle-plus-outline') {
+        this.isWish = 'el-icon-circle-check'
+      } else {
+        this.isWish = 'el-icon-circle-plus-outline'
+      }
     }
   }
 }

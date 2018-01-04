@@ -8,7 +8,6 @@
               <el-col :span="4"><div class="grid-content bg-purple"><h3>正在热映</h3></div></el-col>
               <el-col :span="12">
                 <div class="grid-content bg-purple">
-                  placeholder
                 </div>
               </el-col>
               <el-col :span="8">
@@ -17,30 +16,29 @@
           </el-header>
           <el-main>
             <el-row>
-              <el-carousel :interval="4000" type="card" height="200px">
-                <el-carousel-item v-for="item in 6" :key="item" @click="movieDetail">
-                  <img src="../../assets/logo.png" alt="">
-                  <h3>{{ item }}</h3>
+              <el-carousel :interval="4000" type="card" height="350px" style="text-align: center">
+                <el-carousel-item v-for="(item) in movie_inTheaters" :key="item.id" @click="movieDetail">
+                  <img :src="item.coverAddress" alt="">
                 </el-carousel-item>
               </el-carousel>
             </el-row>
             <el-row>
-              <el-col :span="4" v-for="(o, index) in 5" :key="o" :offset="index > 0 ? 1 : 0">
-                <el-card :body-style="{ padding: '0px' }">
-                  <img src="../../assets/logo.png" class="image">
-                  <div style="padding: 14px;">
-                      <el-button type="text" class="button" @click="movieDetail">操作按钮</el-button>
-                      <br>
-                      <time class="time">{{ currentDate }}</time>
-                  </div>
-                </el-card>
-              </el-col>
+              <el-carousel :interval="5000" arrow="always" height="250px" indicator-position="outside" style="margin-top: 20px">
+                <el-carousel-item v-for="itemI in movie_inTheaters_more" :key="itemI">
+                  <el-col :span="4" v-for="(item, index) in itemI" :key="item.id" :offset="index > 0 ? 1 : 0">
+                    <el-card :body-style="{ padding: '0px' }">
+                      <img :src="item.coverAddress" alt="" style="width: 100%">
+                      <div style="padding: 0;text-align: center">
+                        <el-button type="text" class="button" @click="movieDetail(item.id)">{{item.movieName}}</el-button>
+                        <br>
+                        <time class="time">{{ item.releaseTime.slice(2,12) }}</time>
+                      </div>
+                    </el-card>
+                  </el-col>
+                </el-carousel-item>
+              </el-carousel>
             </el-row>
           </el-main>
-          <el-footer>
-            <el-pagination small layout="prev, pager, next" :total="30" :page-size="5">
-            </el-pagination>
-          </el-footer>
         </el-container>
         <div id="recent" style="margin-top: 60px">
           <el-header style="padding: 0">
@@ -76,7 +74,7 @@
               <el-col :span="4" v-for="(o) in 4" :key="o" :offset="1">
                 <el-card :body-style="{ padding: '0px' }">
                   <img src="../../assets/logo.png" class="image">
-                  <div style="padding: 14px;">
+                  <div style="padding: 0;text-align: center">
                       <el-button type="text" class="button">操作按钮</el-button>
                       <br>
                       <time class="time">{{ currentDate }}</time>
@@ -128,12 +126,38 @@
 </template>
 
 <script>
+import axios from 'axios'
+// import qs from 'qs'
+
 export default {
   data () {
     return {
       currentDate: new Date(),
-      activeName: 'first'
+      activeName: 'first',
+      movie_data: [],
+      movie_inTheaters: [],
+      movie_inTheaters_more: []
     }
+  },
+  mounted: function () {
+    axios.get('http://localhost:8888/explore?tag=2016-2017&type=year').then(response => {
+      this.movie_data = response.data.result
+      for (let index = 0; index < 6; index++) {
+        this.movie_inTheaters.push(this.movie_data[index])
+      }
+      for (let index = 0; index < 6; index++) {
+        var temp = []
+        for (let i = 0; i < 5; i++) {
+          temp.push(this.movie_data[index * 5 + i])
+        }
+        this.movie_inTheaters_more.push(temp)
+      }
+    }, response => {
+      this.$message({
+        message: response.status,
+        type: 'error'
+      })
+    })
   },
   methods: {
     handleClick: function (tab, event) {
@@ -142,8 +166,8 @@ export default {
     more: function () {
       this.$router.push('/')
     },
-    movieDetail: function () {
-      this.$router.push('/movieDetail')
+    movieDetail: function (id) {
+      this.$router.push('/movieDetail/' + id)
     }
   }
 }
@@ -179,7 +203,7 @@ export default {
       clear: both
   }
 
-  .el-carousel__item h3 {
+  /* .el-carousel__item h3 {
     color: #475669;
     font-size: 14px;
     opacity: 0.75;
@@ -193,5 +217,5 @@ export default {
   
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
-  }
+  } */
 </style>

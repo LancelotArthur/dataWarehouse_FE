@@ -63,7 +63,7 @@ export default new Router({
       component: review
     },
     {
-      path: '/movieDetail',
+      path: '/movieDetail/:id',
       name: 'movieDetail',
       component: movieDetail
     },
