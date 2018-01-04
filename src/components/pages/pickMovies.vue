@@ -3,9 +3,9 @@
     <el-row id="global-wrap" :gutter="50">
       <el-col id="article" :span="18">
         <el-container>
-          <el-header height="150px" style="text-align: left">
+          <el-header height="150px" style="padding: 0;text-align: left">
             <el-row>
-              <h2>选电影</h2>
+              <h1>选电影</h1>
             </el-row>
             <el-row style="margin-top: 10px">
               <fish-tag index="最新" @click="handleRecentClick">最新</fish-tag>

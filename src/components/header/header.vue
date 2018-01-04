@@ -22,18 +22,15 @@
       </fish-submenu>
     </fish-menu>
     <div style="width: 80%;margin: 0 auto">
-      <el-col id="title" :span="8" style="text-align: center">
-        <h1 style="font-size: 40px;font-family: Helvetica Neue;margin-top: 5px">HyperSearching</h1>
-      </el-col>
-      <el-col id="searching" :span="10" style="text-align: center">
+      <el-col id="searching" :span="10" style="text-align: center;margin-left: 20%">
         <div style="margin-top: 15px;">
-          <el-input placeholder="请输入内容" clearable v-model="input5" class="input-with-select">
+          <el-input placeholder="搜索电影、影人" clearable v-model="input" class="input-with-select" @focus="whenFocus">
             <el-select v-model="select" slot="prepend" placeholder="请选择">
               <el-option label="餐厅名" value="1"></el-option>
               <el-option label="订单号" value="2"></el-option>
               <el-option label="用户电话" value="3"></el-option>
             </el-select>
-            <el-button slot="append" icon="el-icon-search"></el-button>
+            <el-button slot="append" icon="el-icon-search" @click="search(input)"></el-button>
           </el-input>
         </div>
       </el-col>
@@ -49,6 +46,7 @@ export default {
   name: 'Header',
   data () {
     return {
+      input: ''
     }
   },
   methods: {
@@ -93,6 +91,12 @@ export default {
           type: 'error'
         })
       })
+    },
+    search: function (str) {
+      this.$router.push('/searchResult/' + str)
+    },
+    whenFocus: function () {
+      this.$router.push('/homePage')
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 60px">
+  <div style="margin: 100px">
     <div class="login-wrap" v-show="showLogin">
       <h3>登录</h3>
       <div>

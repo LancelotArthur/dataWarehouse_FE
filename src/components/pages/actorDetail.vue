@@ -24,9 +24,8 @@
           <h5 style="margin-top: 10px">{{actor_info.briefIntroduction}}</h5>
         </el-row>
         <el-row id="intro">
-          <h3>影人图片  · · · · · ·(<a href="#">全部132张 · 上传照片</a>)</h3>
+          <h3>影人图片  · · · · · ·(<a href="#">上传照片</a>)</h3>
           <el-col :span="4" v-for="(o, index) in 5" :key="o" :offset="index == 0 ? 0 : 1">
-            <img src="../../assets/logo.png" class="image">
           </el-col>
         </el-row>
         <el-row id="recent-works">
@@ -44,15 +43,10 @@
       </el-col>
       <el-col id="aside" :span="6">
         <el-row id="most-popular-works">
-          <h5>菲恩·怀特海德的影迷（2625）· · · · · ·  (<a href="#">全部</a>)</h5>
+          <h5>{{actor_info.name.split(' ')[0]}}的影迷 · · · · · ·  (<a href="#">全部</a>)</h5>
           <el-row v-for="(o) in 2" :key="o">
             <el-col :span="5" v-for="(o, index) in 4" :key="o" :offset="index == 0 ? 0 : 1">
               <el-card :body-style="{ padding: '0px' }">
-                <img src="../../assets/logo.png" class="image">
-                <div style="padding: 0;text-align: center">
-                    <el-button type="text" class="button" @click="actorDetail" style="font-size:10px">tankdream</el-button>
-                    <h5 style="color: #d9d9d9;margin: 0;font-size: 13px">{{role}}</h5>
-                </div>
               </el-card>
             </el-col>
           </el-row>

@@ -12,6 +12,7 @@ import movieDetail from '@/components/pages/movieDetail'
 import actorDetail from '@/components/pages/actorDetail'
 import profile from '@/components/pages/profile'
 import review from '@/components/pages/review'
+import searchResult from '@/components/pages/searchResult'
 
 Vue.use(Router)
 
@@ -76,6 +77,11 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: profile
+    },
+    {
+      path: '/searchResult/:str',
+      name: 'searchResult',
+      component: searchResult
     }
   ],
   scrollBehavior (to, from, savedPosition) {
