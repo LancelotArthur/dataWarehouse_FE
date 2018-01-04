@@ -7,26 +7,26 @@
             <img src="../../assets/logo.png" class="image">
           </el-col>
           <el-col :span="4">
-            <h1>{{name}}</h1>
+            <h1>{{userInfo.userName}}</h1>
           </el-col>
         </el-row>
         <div style="text-align: left;margin:0">
           <el-row id="collection">
-            <h3 style="margin: 20px 0 20px 0">{{name}}的收藏 · · · · · ·(<a href="#">全部</a>)</h3>
+            <h3 style="margin: 20px 0 20px 0">{{userInfo.userName}}的收藏 · · · · · ·(<a href="#">全部</a>)</h3>
             <el-row v-for="o in 5" :key="o" style="margin:0">
               <h5 style="margin: 0"><a href="#">电影图片: 莫里斯 Maurice‎ (1987)</a></h5>
               <p class="ul" style="margin-top: 5px;margin-bottom:5px"/>
             </el-row>
           </el-row>
           <el-row id="collection">
-            <h3 style="margin: 20px 0 20px 0">{{name}}的短评 · · · · · ·(<a href="#">全部</a>)</h3>
+            <h3 style="margin: 20px 0 20px 0">{{userInfo.userName}}的短评 · · · · · ·(<a href="#">全部</a>)</h3>
             <el-row v-for="o in 5" :key="o" style="margin:0">
               <h5 style="margin: 0"><a href="#">电影图片: 莫里斯 Maurice‎ (1987)</a></h5>
               <p class="ul" style="margin-top: 5px;margin-bottom:5px"/>
             </el-row>
           </el-row>
           <el-row id="collection">
-            <h3 style="margin: 20px 0 20px 0">{{name}}的影评 · · · · · ·(<a href="#">全部</a>)</h3>
+            <h3 style="margin: 20px 0 20px 0">{{userInfo.userName}}的影评 · · · · · ·(<a href="#">全部</a>)</h3>
             <el-row v-for="o in 5" :key="o" style="margin:0">
               <h5 style="margin: 0"><a href="#">电影图片: 莫里斯 Maurice‎ (1987)</a></h5>
               <p class="ul" style="margin-top: 5px;margin-bottom:5px"/>
@@ -60,8 +60,10 @@
 export default {
   data () {
     return {
-      name: 'Lancelot',
-      joinTime: '2017-10-12'
+      userInfo: {
+        userName: this.$store.state.userInfo.userName,
+        joinTime: '2017-10-12'
+      }
     }
   }
 }

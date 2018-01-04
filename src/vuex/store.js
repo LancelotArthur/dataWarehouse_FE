@@ -6,16 +6,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: '',
-    userName: ''
+    userInfo: {
+      userName: ''
+    }
   },
   mutations: {
     login (state, payload) {
       state.token = payload.token
-      state.userName = payload.userName
+      state.userInfo.userName = payload.userName
     },
     logout (state) {
       state.token = ''
-      state.userName = ''
+      state.userInfo.userName = ''
     }
   }
 })

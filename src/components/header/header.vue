@@ -8,7 +8,7 @@
       <fish-option index="4" content="影评" @click="review"></fish-option>
       <fish-option index="5" content="登录" @click="login" v-show="!$store.state.token"></fish-option>
       <fish-submenu index="6" v-show="$store.state.token">
-        <template slot="title">{{$store.state.userName}}</template>
+        <template slot="title">{{$store.state.userInfo.userName}}</template>
         <fish-option index="6-0" content="个人主页" @click="profile"></fish-option>
         <fish-option index="6-1" content="我的订单"></fish-option>
         <fish-option index="6-2" content="我的钱包"></fish-option>
@@ -40,8 +40,6 @@ export default {
     },
     homePage: function () {
       this.$router.push('/homePage')
-      console.log(this.userName)
-      console.log(sessionStorage.getItem('token'))
     },
     pickMovies: function () {
       this.$router.push('/pickMovies')
@@ -67,6 +65,7 @@ export default {
         sessionStorage.removeItem('token')
         sessionStorage.removeItem('userName')
         this.$store.commit('logout')
+        this.$router.push('/login')
         this.$message({
           message: '成功注销',
           type: 'success'

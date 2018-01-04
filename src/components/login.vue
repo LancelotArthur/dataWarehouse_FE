@@ -32,8 +32,17 @@
       </div>
       <div>
         <el-input class="inputBox"
+          type="password"
           placeholder="请输入密码"
           v-model="newInfo.userPassword"
+          clearable>
+        </el-input>
+      </div>
+      <div>
+        <el-input class="inputBox"
+          type="password"
+          placeholder="请确认密码"
+          v-model="newInfo.userPasswordCofirm"
           clearable>
         </el-input>
       </div>
@@ -71,6 +80,7 @@ export default {
       newInfo: {
         userName: '',
         userPassword: '',
+        userPasswordCofirm: '',
         email: '',
         nickName: ''
       },
@@ -93,7 +103,7 @@ export default {
           console.log(sessionStorage.getItem('token'))
           this.$confirm('是否要保存密码', '提示', {
             confirmButtonText: '确定',
-            cancelButtonText: '取消',
+            cancelButtonText: '不，谢谢',
             type: 'info'
           }).then(() => {
             this.$store.commit('login', sessionStorage)
@@ -126,27 +136,66 @@ export default {
       })
     },
     register: function () {
-      axios.post('http://localhost:8888/register', qs.stringify(this.newInfo)).then(response => {
-        if (response.data.status === '201') {
-          this.ToLogin()
-          this.$message({
-            type: 'success',
-            center: true,
-            message: '欢迎 ' + this.newInfo.nickName
-          })
-        } else if (response.data.status === '400') {
-          this.$message({
-            type: 'warning',
-            duration: 2000,
-            message: response.data.result
-          })
-        }
-      }, response => {
+      if (this.newInfo.userName === '') {
         this.$message({
-          message: '服务器错误',
-          type: 'error'
+          type: 'info',
+          center: true,
+          message: '用户名不能为空'
         })
-      })
+      } else if (this.newInfo.userPassword === '') {
+        this.$message({
+          type: 'info',
+          center: true,
+          message: '请输入密码'
+        })
+      } else if (this.newInfo.userPasswordCofirm === '') {
+        this.$message({
+          type: 'info',
+          center: true,
+          message: '请确认密码'
+        })
+      } else if (this.newInfo.userPassword !== this.newInfo.userPasswordCofirm) {
+        this.$message({
+          type: 'info',
+          center: true,
+          message: '两次输入密码不一致'
+        })
+        this.newInfo.userPasswordCofirm = ''
+      } else if (this.newInfo.email === '') {
+        this.$message({
+          type: 'info',
+          center: true,
+          message: '邮箱不能为空'
+        })
+      } else if (this.newInfo.nickName === '') {
+        this.$message({
+          type: 'info',
+          center: true,
+          message: '请输入昵称'
+        })
+      } else {
+        axios.post('http://localhost:8888/register', qs.stringify(this.newInfo)).then(response => {
+          if (response.data.status === '201') {
+            this.ToLogin()
+            this.$message({
+              type: 'success',
+              center: true,
+              message: '欢迎 ' + this.newInfo.nickName
+            })
+          } else if (response.data.status === '400') {
+            this.$message({
+              type: 'warning',
+              duration: 2000,
+              message: response.data.result
+            })
+          }
+        }, response => {
+          this.$message({
+            message: '服务器错误',
+            type: 'error'
+          })
+        })
+      }
     },
     ToRegister: function () {
       this.showLogin = false
