@@ -100,7 +100,6 @@ export default {
         if (response.data.status === '200') {
           sessionStorage.setItem('token', response.data.result.token)
           sessionStorage.setItem('userName', this.info.userName)
-          console.log(sessionStorage.getItem('token'))
           this.$confirm('是否要保存密码', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '不，谢谢',

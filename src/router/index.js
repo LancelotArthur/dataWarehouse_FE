@@ -68,7 +68,7 @@ export default new Router({
       component: movieDetail
     },
     {
-      path: '/actorDetail',
+      path: '/actorDetail/:id',
       name: 'actorDetail',
       component: actorDetail
     },

@@ -4,25 +4,24 @@
       <el-col id="article" :span="18">
         <el-container id="detail">
           <el-header height="40px" style="text-align: left;padding: 0">
-            <h1>菲恩·怀特海德 Fionn Whitehead</h1>
+            <h1>{{actor_info.name}}</h1>
           </el-header>
           <el-container>
             <el-aside width="150px">
-              <img src="https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1504371987.55.webp" class="image">
+              <img :src="actor_info.headImg" class="image">
             </el-aside>
             <el-main style="padding-top: 10px;text-align: left">
-              <h5 style="margin: 0">性别：1997</h5>
-              <h5 style="margin: 0">出生地：英国,伦敦</h5>
-              <h5 style="margin: 0">职业：演员</h5>
-              <h5 style="margin: 0">更多中文名：菲安伟赫(港)</h5>
-              <h5 style="margin: 0">IMDb编号：<a href="#">nm7887725</a> </h5>
+              <h5 style="margin: 0" v-if="actor_info.gender">性别：{{actor_info.gender}}</h5>
+              <h5 style="margin: 0" v-if="actor_info.birthday">生日：{{actor_info.birthday}}</h5>
+              <h5 style="margin: 0" v-if="actor_info.nation">出生地：{{actor_info.nation}}</h5>
+              <h5 style="margin: 0" v-if="actor_info.occupation">职业：{{actor_info.occupation}}</h5>
             </el-main>
           </el-container>
         </el-container>
         <p class="ul"/>
         <el-row id="intro">
           <h3>影人简介  · · · · · ·</h3>
-          <h5 style="margin-top: 10px">菲恩·怀特海德，英国演员，1997年出生于英国伦敦，成长于大伦敦区里士满镇的一个艺术世家。他的父亲Tim Whitehead是一位爵士作曲家，姐妹同样也是音乐家。在成长过程中，他曾考虑过要当一名霹雳舞表演者，后来却变成了做演员。13岁时，他在里士满的橙树剧院开始了自己的表演生涯，继而转到里士满学院，并在英国国家青年剧院就读夏季课程。在2015年之前，他还是一位在滑铁卢的咖啡店打工的有志演员。2016年，他主演了英国的迷你电视剧《他》，同时也在伦敦表演了舞台剧《Glenn ...(<a href="#">展开全部</a>)</h5>
+          <h5 style="margin-top: 10px">{{actor_info.briefIntroduction}}</h5>
         </el-row>
         <el-row id="intro">
           <h3>影人图片  · · · · · ·(<a href="#">全部132张 · 上传照片</a>)</h3>
@@ -31,25 +30,13 @@
           </el-col>
         </el-row>
         <el-row id="recent-works">
-          <h3>最近的5部作品（已上映）· · · · · ·  (<a href="#">全部</a>)</h3>
-          <el-col :span="4" v-for="(o, index) in 5" :key="o" :offset="index == 0 ? 0 : 1">
+          <h3>{{actor_info.name.split(' ')[0]}}的作品（已上映）· · · · · ·  (<a href="#">全部</a>)</h3>
+          <el-col :span="4" v-for="(item, index) in actor_info_movie" :key="item.id" :offset="index == 0 ? 0 : 1">
             <el-card :body-style="{ padding: '0px' }">
-              <img src="../../assets/logo.png" class="image">
+              <img :src="item.coverAddress" class="image">
               <div style="padding: 0;text-align: center">
-                  <el-button type="text" class="button" @click="actorDetail">菲恩·怀特海德</el-button>
-                  <h5 style="color: #d9d9d9;margin: 0;font-size: 13px">{{role}}</h5>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-        <el-row id="most-popular-works">
-          <h3>最受好评的5部作品   · · · · · ·  (<a href="#">全部</a>)</h3>
-          <el-col :span="4" v-for="(o, index) in 5" :key="o" :offset="index == 0 ? 0 : 1">
-            <el-card :body-style="{ padding: '0px' }">
-              <img src="../../assets/logo.png" class="image">
-              <div style="padding: 0;text-align: center">
-                  <el-button type="text" class="button" @click="actorDetail">菲恩·怀特海德</el-button>
-                  <h5 style="color: #d9d9d9;margin: 0;font-size: 13px">{{role}}</h5>
+                  <el-button type="text" class="button" @click="movieDetail(item.id)">{{item.movieName}}</el-button>
+                  <h5 style="color: #d9d9d9;margin: 0;font-size: 13px">{{item.releaseTime.slice(2,12)}}</h5>
               </div>
             </el-card>
           </el-col>
@@ -76,7 +63,57 @@
 </template>
 
 <script>
-export default { }
+import axios from 'axios'
+
+export default {
+  data () {
+    return {
+      actor_info: {},
+      actor_info_movie: []
+    }
+  },
+  mounted: function () {
+    axios.get('http://localhost:8888/celebrity/' + this.$route.params.id).then(response => {
+      this.actor_info = response.data.result
+      var occupation = ''
+      if (this.actor_info.writer) {
+        occupation += '编剧'
+      } else if (this.actor_info.actor) {
+        occupation += ' 演员'
+      } else if (this.actor_info.director) {
+        occupation += ' 导演'
+      } else if (this.actor_info.producer) {
+        occupation += ' 制片人'
+      }
+      if (occupation[0] === ',') {
+        occupation = occupation.slice(1, occupation.length)
+      }
+      this.actor_info.occupation = occupation
+    }, response => {
+      this.$message({
+        message: response.status,
+        type: 'error'
+      })
+    })
+    axios.get('http://localhost:8888/celebrity/' + this.$route.params.id + '/movie').then(response => {
+      if (response.data.result.Writers) {
+        this.actor_info_movie = response.data.result.Writers
+      } else if (response.data.result.Producers) {
+        this.actor_info_movie = response.data.result.Producers
+      } else if (response.data.result.Actors) {
+        this.actor_info_movie = response.data.result.Actors
+      } else if (response.data.result.Directors) {
+        this.actor_info_movie = response.data.result.Directors
+      }
+      console.log(this.actor_info_movie)
+    }, response => {
+      this.$message({
+        message: response.status,
+        type: 'error'
+      })
+    })
+  }
+}
 </script>
 
 <style>
