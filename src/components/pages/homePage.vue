@@ -141,7 +141,7 @@ export default {
     }
   },
   mounted: function () {
-    axios.get('http://localhost:8888/explore?type=year&tag=2016-2017&sort=Rate').then(response => {
+    axios.get('http://localhost:8888/explore?type=year&tag=2016-2017&sort=defualt').then(response => {
       this.movie_data = response.data.result
       for (let index = 0; index < 6; index++) {
         this.movie_inTheaters.push(this.movie_data[index])
