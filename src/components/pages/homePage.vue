@@ -71,13 +71,13 @@
           </el-header>
           <el-main style="padding: 0">
             <el-row :span="2" v-for="(o) in 2" :key="o" style="margin-top: 10px">
-              <el-col :span="4" v-for="(o) in 4" :key="o" :offset="1">
+              <el-col :span="4" v-for="(item) in movie_recent_Mandarin.slice(0,4)" :key="item.id" :offset="1">
                 <el-card :body-style="{ padding: '0px' }">
-                  <img src="../../assets/logo.png" class="image">
+                  <img :src="item.coverAddress" class="image" style="width: 100%">
                   <div style="padding: 0;text-align: center">
-                      <el-button type="text" class="button">操作按钮</el-button>
-                      <br>
-                      <time class="time">{{ currentDate }}</time>
+                    <el-button type="text" class="button" @click="movieDetail(item.id)">{{item.movieName}}</el-button>
+                    <br>
+                    <time class="time">{{ item.releaseTime.slice(2,12) }}</time>
                   </div>
                 </el-card>
               </el-col>
@@ -136,11 +136,12 @@ export default {
       activeName: 'first',
       movie_data: [],
       movie_inTheaters: [],
-      movie_inTheaters_more: []
+      movie_inTheaters_more: [],
+      movie_recent_Mandarin: []
     }
   },
   mounted: function () {
-    axios.get('http://localhost:8888/explore?tag=2016-2017&type=year').then(response => {
+    axios.get('http://localhost:8888/explore?type=year&tag=2016-2017&sort=Rate').then(response => {
       this.movie_data = response.data.result
       for (let index = 0; index < 6; index++) {
         this.movie_inTheaters.push(this.movie_data[index])
@@ -152,6 +153,14 @@ export default {
         }
         this.movie_inTheaters_more.push(temp)
       }
+    }, response => {
+      this.$message({
+        message: response.status,
+        type: 'error'
+      })
+    })
+    axios.get('http://localhost:8888/explore?tag=汉语&type=language&sort=ReleaseTime').then(response => {
+      this.movie_recent_Mandarin = response.data.result
     }, response => {
       this.$message({
         message: response.status,

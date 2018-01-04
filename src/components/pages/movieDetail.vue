@@ -28,6 +28,9 @@
               <el-button type="primary" :icon="isWish" plain style="margin-top: 20px" @click="addToWishList">
                 加入心愿单
               </el-button>
+              <el-button type="primary" icon="el-icon-edit" plain style="width: 134px;margin-top: 20px" @click="writeReview">
+                写短评
+              </el-button>
             </el-aside>
           </el-container>
         </el-container>
@@ -39,9 +42,9 @@
           <h3>{{movie_data.movieName}}的影人 · · · · · ·（<a href="#" style="font-size: 15px">全部</a>）</h3>
           <el-col :span="3" v-for="(item, index) in movie_data_celebrity.Actors.slice(0,6)" :key="item.id" :offset="index == 0 ? 0 : 1">
             <el-card :body-style="{ padding: '0px' }">
-              <img src="https://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1365913316.45.jpg" alt="">
+              <img :src="item.headImg" alt="崩了" style="width: 100%">
               <div style="padding: 0;text-align: center">
-                  <el-button type="text" class="button" @click="actorDetail">{{item.name}}</el-button>
+                  <el-button type="text" class="button" @click="actorDetail">{{item.name.split(' ')[0]}}</el-button>
               </div>
             </el-card>
           </el-col>
@@ -170,6 +173,9 @@ export default {
       } else {
         this.isWish = 'el-icon-circle-plus-outline'
       }
+    },
+    writeReview: function () {
+
     }
   }
 }
