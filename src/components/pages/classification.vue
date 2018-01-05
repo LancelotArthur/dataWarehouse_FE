@@ -118,6 +118,9 @@ export default {
     sortByRate: function () {
 
     },
+    movieDetail: function (id) {
+      this.$router.push('/movieDetail/' + id)
+    },
     handleLanguageClick: function (index) {
       axios.get('http://localhost:8888/explore?tag=' + index + '&type=language&sort=ReleaseTime').then(response => {
         this.movie_data = response.data.result

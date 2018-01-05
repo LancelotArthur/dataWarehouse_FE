@@ -38,12 +38,13 @@
         <el-col style="background: #d0e0e3;border-radius: 5px;padding: 10px 10px 20px 10px">
           <el-row>
             <el-col :span="12" style="padding: 0">
-              <img src="../../assets/logo.png" class="image">
+              <img src="../../assets/logo.png" class="image" style="width: 100%">
             </el-col>
             <el-col :span="12" style="padding: 0">
-              <h5 style="margin: 0">常居：<a href="#">上海</a> </h5>
-              <h5 style="margin: 0">168033009</h5>
-              <h5 style="margin: 0">{{joinTime}}加入</h5>
+              <h5 style="margin: 0">用户名：<a href="#">lqy10</a> </h5>
+              <h5 style="margin: 0">邮箱：1027636118@qq.com</h5>
+              <h5 style="margin: 0">昵称：lancelot</h5>
+              <h5 style="margin: 0">{{userInfo.joinTime}}加入</h5>
             </el-col>
           </el-row>
           <hr color="#cccccc" style="margin: 5px 10px 5px 10px"/>
@@ -62,7 +63,7 @@ export default {
     return {
       userInfo: {
         userName: this.$store.state.userInfo.userName,
-        joinTime: '2017-10-12'
+        joinTime: '2018-1-5'
       }
     }
   }
