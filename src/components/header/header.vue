@@ -29,7 +29,8 @@
     <div style="height: 100px;width: 100%;position: fixed;z-index:99;background-color: rgb(210, 213, 219)"></div>
     <div style="height: 90px"></div>
     <history id="component" v-if="history_state" :msg="historys"></history>
-    <display-card id="component" v-for="(item, index) in statements" :key="index" :statement="item" keep-alive></display-card>
+    <display-card id="component" v-for="(item, index) in statements" :key="index"
+    :msg="{index,statements}" keep-alive></display-card>
   </div>
 </template>
 

@@ -1,9 +1,9 @@
 <template>
-  <div v-show="show">
+  <div>
     <el-container>
       <el-header height="37px">
         <el-col :span="16" style="text-align: left">
-          {{statement}}
+          {{msg.statements[msg.index]}}
         </el-col>
         <el-col :span="8" style="text-align: right">
           <el-button-group>
@@ -56,17 +56,15 @@ export default {
       fold_state: false
     }
   },
-  props: ['statement'],
+  props: ['msg'],
   methods: {
     fold: function () {
       this.fold_state = !this.fold_state
-      console.log(this.fold_state)
-      console.log(this.msg)
     },
     refresh: function () {
     },
     close: function () {
-      this.show = false
+      this.msg.statements.splice(this.msg.index, 1)
     }
   },
   components: {
