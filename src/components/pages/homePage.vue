@@ -139,6 +139,7 @@ export default {
     }
   },
   mounted: function () {
+    // window.addEventListener('scroll', this.handleScroll)
     axios.get('http://localhost:8888/explore?type=year&tag=2016-2017&sort=defualt').then(response => {
       this.movie_data = response.data.result
       for (let index = 0; index < 6; index++) {
@@ -187,7 +188,19 @@ export default {
       })
     })
   },
+  destroyed: function () {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
+    // handleScroll: function () {
+    //   var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+    //   var offsetTop = document.querySelector('#searchBar').offsetTop
+    //   if (scrollTop > offsetTop) {
+    //     this.searchBarFixed = true
+    //   } else {
+    //     this.searchBarFixed = false
+    //   }
+    // },
     handleClick: function (tab, event) {
       if (tab.label === 'more') {
         this.$router.push('/pickMovies')
