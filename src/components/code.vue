@@ -1,37 +1,5 @@
 <template>
   <div>
-    <!-- <div>
-      <el-col :span="6" id="title">
-        Server version
-      </el-col>
-      <el-col :span="14">
-        mySQL
-      </el-col>
-    </div>
-    <div style="background-color: #f5f5f5">
-      <el-col :span="6" id="title">
-        Server address
-      </el-col>
-      <el-col :span="14" style="background-color: #f5f5f5">
-        localhost:8888
-      </el-col>
-    </div>
-    <div>
-      <el-col :span="6" id="title">
-        Query
-      </el-col>
-      <el-col :span="14">
-        {{msg}}
-      </el-col>
-    </div>
-    <div>
-      <el-col :span="6" id="title">
-        Response
-      </el-col>
-      <el-col :span="14" style="background-color: #f5f5f5">
-
-      </el-col>
-    </div> -->
     <table style="width: 100%;background-color: #ffffff">
       <tbody>
         <tr class="odd">
@@ -39,7 +7,7 @@
             Server version
           </td>
           <td class="content">
-            mySQL
+            {{serverVersion}}
           </td>
         </tr>
         <tr class="even">
@@ -47,7 +15,7 @@
             Server address
           </td>
           <td class="content">
-            localhost:8888
+            {{serverAddress}}
           </td>
         </tr>
         <tr class="odd">
@@ -59,6 +27,14 @@
           </td>
         </tr>
         <tr class="even">
+          <td class="title" @click="handleClick">
+            Time_consuming
+          </td>
+          <td class="content">
+            {{time}}
+          </td>
+        </tr>
+        <tr class="odd">
           <td class="title">
             Response
           </td>
@@ -75,13 +51,39 @@
 export default {
   data () {
     return {
-      query: ''
+      query: '',
+      res: [],
+      time: '',
+      serverVersion: '',
+      serverAddress: ''
     }
   },
+  props: ['msg'],
   mounted: function () {
+    if (this.msg[2] === '1') {
+      this.serverVersion = 'mySQL'
+      this.serverAddress = 'localhost:8888'
+    } else if (this.msg[2] === '2') {
+      this.serverVersion = 'HDFS + neo4j'
+      this.serverAddress = 'localhost:7474'
+    }
     this.query = this.$parent.statement
+    this.res = this.msg[1]
+    if (this.msg[1].length === 2) {
+      this.time = this.msg[1][0] / 1000 + 's'
+    } else {
+      this.time = this.msg[1][this.msg[1].length - 1].split(' : ')[1] / 1000 + 's'
+    }
   },
-  props: ['msg']
+  methods: {
+    handleClick: function () {
+      if (this.msg[1].length === 2) {
+        this.time = this.msg[1][0] / 1000 + 's'
+      } else {
+        this.time = this.msg[1][this.msg[1].length - 1].slice(1, this.msg[1][this.msg[1].length - 1].length).split(' : ')[1] / 1000 + 's'
+      }
+    }
+  }
 }
 </script>
 
@@ -97,7 +99,7 @@ export default {
 .content {
   text-align: left;
 }
-.even {
+.odd {
   background-color: #f5f5f5
 }
 </style>

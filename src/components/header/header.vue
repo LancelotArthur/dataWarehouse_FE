@@ -29,7 +29,7 @@
     <div style="height: 100px;width: 100%;position: fixed;z-index:99;background-color: rgb(210, 213, 219)"></div>
     <div style="height: 90px"></div>
     <display-card id="component" v-for="(item, index) in statements" :key="index"
-    :msg="{index,statements}" :ref="index"></display-card>
+    :msg="{select,index,statements}" :ref="index"></display-card>
     <history id="component" v-if="history_state" :msg="historys"></history>
   </div>
 </template>
@@ -65,6 +65,7 @@ export default {
     },
     history: function () {
       this.history_state = !this.history_state
+      window.scrollTo(0, document.body.scrollHeight)
     },
     search: function () {
       if (this.input !== '') {

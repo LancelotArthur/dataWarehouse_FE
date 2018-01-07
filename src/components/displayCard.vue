@@ -15,7 +15,7 @@
       </el-header>
       <el-container v-show="!fold_state">
         <el-aside width="63px">
-          <el-menu default-active="myGraph" class="el-menu-vertical-demo" @select="handleSelect" collapse="false">
+          <el-menu default-active="myCode" class="el-menu-vertical-demo" @select="handleSelect" collapse="false">
             <el-menu-item index="myGraph">
               <i class="el-icon-share"></i>
               <span slot="title">Graph</span>
@@ -36,7 +36,7 @@
         </el-aside>
         <el-container>
           <el-main>
-            <component :is="type" :id="type" :msg="[msg.statements[msg.index], res]"></component>
+            <component :is="type" :id="type" :msg="[msg.statements[msg.index], res, msg.select]"></component>
           </el-main>
         </el-container>
       </el-container>
@@ -56,21 +56,34 @@ export default {
     return {
       show: true,
       fold_state: false,
-      type: 'myGraph',
+      type: 'myCode',
       res: []
     }
   },
   props: ['msg'],
   mounted () {
-    axios.get('http://localhost:8888/count?' + this.msg.statements[this.msg.index]).then(response => {
-      this.res = response.data.result
-      console.log(this.msg.statements[this.msg.index])
-    }, response => {
-      this.$message({
-        message: response.status,
-        type: 'error'
+    console.log(this.msg.select)
+    if (this.msg.select === '1') {
+      axios.get('http://localhost:8888/count?' + this.msg.statements[this.msg.index]).then(response => {
+        this.res = response.data.result
+        console.log(this.msg.statements[this.msg.index])
+      }, response => {
+        this.$message({
+          message: response.status,
+          type: 'error'
+        })
       })
-    })
+    } else if (this.msg.select === '2') {
+      axios.get('http://localhost:8888/neo4j/count?' + this.msg.statements[this.msg.index]).then(response => {
+        this.res = response.data.result
+        console.log(this.msg.statements[this.msg.index])
+      }, response => {
+        this.$message({
+          message: response.status,
+          type: 'error'
+        })
+      })
+    }
   },
   methods: {
     fold: function () {
