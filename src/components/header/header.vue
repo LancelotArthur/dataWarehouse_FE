@@ -2,7 +2,7 @@
   <div class="">
     <div id="header">
       <el-input style="margin-top: 20px" placeholder="输入查询语句" clearable v-model="input" class="input-with-select" @focus="whenFocus">
-        <el-select v-model="select" slot="prepend" placeholder="请选择">
+        <el-select v-model="select" slot="prepend" placeholder="选择查询系统" @change="handleChange">
           <el-option label="关系型数据库" value="1"></el-option>
           <el-option label="混合仓库系统" value="2"></el-option>
         </el-select>
@@ -28,9 +28,9 @@
     </div> -->
     <div style="height: 100px;width: 100%;position: fixed;z-index:99;background-color: rgb(210, 213, 219)"></div>
     <div style="height: 90px"></div>
-    <history id="component" v-if="history_state" :msg="historys"></history>
     <display-card id="component" v-for="(item, index) in statements" :key="index"
-    :msg="{index,statements}" keep-alive></display-card>
+    :msg="{index,statements}" :ref="index"></display-card>
+    <history id="component" v-if="history_state" :msg="historys"></history>
   </div>
 </template>
 
@@ -43,6 +43,7 @@ import history from '@/components/history'
 export default {
   data () {
     return {
+      select: '',
       input: '',
       collect_state: false,
       history_state: false,
@@ -57,6 +58,8 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
+    handleChange: function (value) {
+    },
     collect: function () {
       this.collect_state = !this.collect_state
     },
@@ -65,9 +68,9 @@ export default {
     },
     search: function () {
       if (this.input !== '') {
-        this.historys.unshift({time: new Date(), statement: this.input})
-        this.statements.unshift(this.input)
-        console.log(this.statements)
+        this.historys.push({time: new Date(), statement: this.input})
+        this.statements.push(this.input)
+        window.scrollTo(0, document.body.scrollHeight)
       } else {
         this.$notify.info({
           offset: 50,

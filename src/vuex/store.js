@@ -8,7 +8,9 @@ export default new Vuex.Store({
     token: '',
     userInfo: {
       userName: ''
-    }
+    },
+    history: [],
+    display: []
   },
   mutations: {
     login (state, payload) {

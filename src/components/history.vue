@@ -3,7 +3,7 @@
     <el-container>
       <el-header height="37px">
         <el-col :span="16">
-          <span style="text-align: center;margin-top: 10px;margin-left:250px" class="el-icon-time"></span>
+          <span style="text-align: center;margin-top: 10px;margin-left:250px">history</span>
         </el-col>
         <el-col :span="8" style="text-align: right">
           <el-button-group>
@@ -22,15 +22,13 @@
       </el-table-column>
       <el-table-column prop="statement" label="statement">
       </el-table-column>
-      <el-table-column label="操作" width="200">
+      <el-table-column label="删除" width="110">
         <template slot-scope="scope">
           <el-button
-            size="mini"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button
+            icon="el-icon-delete"
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            @click="handleDelete(scope.$index, scope.row)"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -47,18 +45,16 @@ export default {
   },
   props: ['msg'],
   mounted: function () {
+    window.scrollTo(0, document.body.scrollHeight)
     this.msg.forEach(item => {
       this.history.push({time: item.time.toString().slice(0, 24), statement: item.statement})
     })
   },
   methods: {
     handleClick: function (row, event, column) {
-      if (column.label !== '操作') {
+      if (column.label !== '删除') {
         this.$parent.input = row.statement
       }
-    },
-    handleEdit: function (index, row) {
-      console.log(index, row)
     },
     handleDelete: function (index, row) {
       this.msg.forEach((item, index) => {

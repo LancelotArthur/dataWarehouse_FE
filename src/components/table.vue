@@ -1,5 +1,5 @@
 <template>
-  
+  <div style="height: 100px">table</div>
 </template>
 
 <script>

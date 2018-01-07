@@ -15,28 +15,29 @@
       </el-header>
       <el-container v-show="!fold_state">
         <el-aside width="63px">
-          <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" collapse="false">
-            <el-menu-item index="1">
+          <el-menu default-active="myGraph" class="el-menu-vertical-demo" @select="handleSelect" collapse="false">
+            <el-menu-item index="myGraph">
               <i class="el-icon-share"></i>
               <span slot="title">Graph</span>
             </el-menu-item>
-            <el-menu-item index="2">
+            <el-menu-item index="myTable">
               <i class="el-icon-menu"></i>
               <span slot="title">Table</span>
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item index="myText">
               <i class="el-icon-tickets"></i>
               <span slot="title">Text</span>
             </el-menu-item>
-            <el-menu-item index="4">
+            <el-menu-item index="myCode">
               <i class="el-icon-edit"></i>
               <span slot="title">Code</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
         <el-container>
-          <el-main>Main</el-main>
-          <el-footer>Footer</el-footer>
+          <el-main>
+            <component :is="type" :id="type" :msg="[msg.statements[msg.index], res]"></component>
+          </el-main>
         </el-container>
       </el-container>
     </el-container>
@@ -44,19 +45,33 @@
 </template>
 
 <script>
-import Graph from '@/components/graph'
-import Table from '@/components/table'
-import Text from '@/components/text'
-import Code from '@/components/code'
+import myGraph from '@/components/graph'
+import myTable from '@/components/table'
+import myText from '@/components/text'
+import myCode from '@/components/code'
+import axios from 'axios'
 
 export default {
   data () {
     return {
       show: true,
-      fold_state: false
+      fold_state: false,
+      type: 'myGraph',
+      res: []
     }
   },
   props: ['msg'],
+  mounted () {
+    axios.get('http://localhost:8888/count?' + this.msg.statements[this.msg.index]).then(response => {
+      this.res = response.data.result
+      console.log(this.msg.statements[this.msg.index])
+    }, response => {
+      this.$message({
+        message: response.status,
+        type: 'error'
+      })
+    })
+  },
   methods: {
     fold: function () {
       this.fold_state = !this.fold_state
@@ -65,13 +80,16 @@ export default {
     },
     close: function () {
       this.msg.statements.splice(this.msg.index, 1)
+    },
+    handleSelect: function (index) {
+      this.type = index
     }
   },
   components: {
-    Graph,
-    Table,
-    Text,
-    Code
+    myGraph,
+    myTable,
+    myText,
+    myCode
   }
 }
 </script>
@@ -103,8 +121,7 @@ export default {
 .el-main {
   background-color: #f9fbfd;
   color: #333;
-  text-align: center;
-  line-height: 160px;
+  height: 450px;
   border-right: 1px solid #e6e9ef;
   border-bottom: 1px solid #e6e9ef;
 }
